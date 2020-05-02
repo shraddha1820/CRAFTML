@@ -55,33 +55,32 @@ class LibsvmFileReader
 		} 
 		return str;
 	}
-	pair<unordered_map<string,float>,unordered_map<string,float>> readNext() {
+	pair<unordered_map<int,float>,unordered_map<int,float>> readNext() {
 		vector<string> line, lineY, valX;
 		// currentX = new SmallItem();
 		// currentY = new SmallItem();
-		unordered_map<string,float> currentX;
-		unordered_map<string,float> currentY;
-
+		unordered_map<int,float> currentX;
+		unordered_map<int,float> currentY;
 		line = myRecordReader.readPureRecord();
 		if(!line[0].empty() || !line[1].empty()){
 			if (line[0].compare("")!=0) {
 				lineY = split(line[0],inputLabelSeparator);
 				for (int j = 0; j < lineY.size(); j++) {
-					currentY[lineY[j]] = 1.0;
+					currentY[stoi(lineY[j])] = 1.0;
 				}
 			}
 			
 			for (int j = 1; j < line.size(); j++) {
 				valX = split(line[j],inputKeyValueSeparator);
-				currentX[valX[0]] = stof(valX[1]);
+				currentX[stoi(valX[0])] = stof(valX[1]);
 			}
 			
 		}
 		else
 		{
 			cout<<myRecordReader.nbReadLine<<endl;
-			currentX["-1"]=1.0;
-			currentY["-1"]=1.0;
+			currentX[-1]=1.0;
+			currentY[-1]=1.0;
 		}
 		// pair_ = make_pair(currentX,currentY);
 		return make_pair(currentX,currentY);	
