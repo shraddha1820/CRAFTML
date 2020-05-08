@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 #include<string.h>
-#include "RecordTextReader.cu"
+#include "RecordTextReader.cpp"
 
 using namespace std;
 class LibsvmFileReader
@@ -12,10 +12,6 @@ class LibsvmFileReader
 	string inputLabelSeparator = ",";
 	string inputKeyValueSeparator = ":";
 	
-	// SmallItem currentX;
-	// SmallItem currentY;
-	
-	
 	RecordTextReader myRecordReader;
 	
 	string filePath = "";
@@ -25,19 +21,13 @@ class LibsvmFileReader
 		this->filePath = filePath;
 		
 	}
-
-
     void openFile() {
-		// initializing reader
-		// myRecordReader = new RecordTextReader();
-
 		myRecordReader.openFile(filePath);
 
 		// reading header
 		if(header){
 			vector<string> a;
 			a = myRecordReader.readPureRecord();
-			// cout<<a[0]<<endl<<a[1]<<endl;
 		}		
 
 	}
@@ -57,8 +47,7 @@ class LibsvmFileReader
 	}
 	pair<unordered_map<int,float>,unordered_map<int,float>> readNext() {
 		vector<string> line, lineY, valX;
-		// currentX = new SmallItem();
-		// currentY = new SmallItem();
+
 		unordered_map<int,float> currentX;
 		unordered_map<int,float> currentY;
 		line = myRecordReader.readPureRecord();
@@ -82,60 +71,7 @@ class LibsvmFileReader
 			currentX[-1]=1.0;
 			currentY[-1]=1.0;
 		}
-		// pair_ = make_pair(currentX,currentY);
 		return make_pair(currentX,currentY);	
-	}
-	
-	
-	// public int countLines() {
-	//     InputStream is = null;
-	// 	try {
-	// 		is = new BufferedInputStream(new FileInputStream(filePath));
-	// 	} catch (FileNotFoundException e) {
-	// 		// TODO Auto-generated catch block
-	// 		e.printStackTrace();
-	// 	}
-	//     try {
-	//         byte[] c = new byte[1024];
-	//         int count = 0;
-	//         int readChars = 0;
-	//         boolean empty = true;
-	//         try {
-	// 			while ((readChars = is.read(c)) != -1) {
-	// 			    empty = false;
-	// 			    for (int i = 0; i < readChars; ++i) {
-	// 			        if (c[i] == '\n') {
-	// 			            ++count;
-	// 			        }
-	// 			    }
-	// 			}
-	// 		} catch (IOException e) {
-	// 			// TODO Auto-generated catch block
-	// 			e.printStackTrace();
-	// 		}
-	//         return (count == 0 && !empty) ? 1 : count;
-	//     } finally {
-	//         try {
-	// 			is.close();
-	// 		} catch (IOException e) {
-	// 			// TODO Auto-generated catch block
-	// 			e.printStackTrace();
-	// 		}
-	//     }
-	// }
-	
-
-	// public SmallItem getX() {
-	// 	return currentX;
-	// }
-
-	// public SmallItem getY() {
-	// 	return currentY;
-	// }
-	
-	// public void closeFile(){
-	// 	myRecordReader.closeFile();
-	// }
-
+	}	
 };
     
