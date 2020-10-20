@@ -641,6 +641,15 @@ void computeSeparateInstances(int **keyX,float **valuesX,int *useInst,int **keyY
 			childrenInstancesValues[k][0]=0;
 		}
 	}
+	//Changes
+	// for(int i=0;i<reservoirIndex[0];i++)
+	// {
+	// 	delete indexesY[i];
+	// 	delete newValuesY[i];
+	// }
+	// delete indexesY;
+	// delete newValuesY;
+	// delete reservoirIndex;
 }
 
 bool sameVector(float *x1,float *x2)
@@ -815,7 +824,13 @@ void buildTree(struct Args_device *d_args,int seedX,int seedY,int tree_no,struct
 		root->center_indexesX[i]=new int[(int)childrenInstancesValues[i][0]+1];
 		memcpy(root->center_indexesX[i],childrenInstancesIndex[i],sizeof(int)*((int)childrenInstancesValues[i][0]+1));
 	}
-	
+	for(int i=0;i<10;i++)
+	{
+		delete childrenInstancesIndex[i];
+		delete childrenInstancesValues[i];
+	}
+	delete childrenInstancesIndex;
+	delete childrenInstancesValues;
 
 	queue_Node[rear]=root;
 	queue_useInst[rear]=new int[d_args->useInst[0]+1];
@@ -941,6 +956,12 @@ void buildTree(struct Args_device *d_args,int seedX,int seedY,int tree_no,struct
 					memcpy(queue_useInst[rear],childuseInst,sizeof(int)*(childuseInst[0]+1));
 					rear++;
 
+					for(int i=0;i<10;i++)
+					{
+						delete childchildrenInstancesIndex[i];
+						delete childchildrenInstancesValues[i];
+					}
+	
 					delete childuseInst;
 					delete childchildrenInstancesIndex;
 					delete childchildrenInstancesValues;
@@ -959,6 +980,15 @@ void buildTree(struct Args_device *d_args,int seedX,int seedY,int tree_no,struct
 			delete useNodes;
 		}
 	}
+	//Changes
+	// for(int i=0;i<d_args->useInst[0];i++)
+	// {
+	// 	delete indexesX[i];
+	// 	delete newValuesX[i];
+	// }
+	// delete indexesX;
+	// delete newValuesX;
+
 	cout<<"Tree "<<tree_no<<" Finished"<<endl;
 
 }
